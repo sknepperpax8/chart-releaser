@@ -179,6 +179,7 @@ func (r *Releaser) UpdateIndexFile() (bool, error) {
 			if _, err := indexFile.Get(packageName, packageVersion); err != nil {
 				// if err := r.addToIndexFile(indexFile, downloadUrl.String()); err != nil {
 				// TODO: make this a config value
+				fmt.Printf("Using my Fork!!!")
 				if err := r.addToIndexFile(indexFile, customUrl); err != nil {
 					return false, err
 				}
