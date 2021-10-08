@@ -171,12 +171,15 @@ func (r *Releaser) UpdateIndexFile() (bool, error) {
 		for _, asset := range release.Assets {
 			downloadUrl, _ := url.Parse(asset.URL)
 			name := filepath.Base(downloadUrl.Path)
+			customUrl := "https://pax8.github.io/charts/" + name
 			baseName := strings.TrimSuffix(name, filepath.Ext(name))
 			tagParts := r.splitPackageNameAndVersion(baseName)
 			packageName, packageVersion := tagParts[0], tagParts[1]
 			fmt.Printf("Found %s-%s.tgz\n", packageName, packageVersion)
 			if _, err := indexFile.Get(packageName, packageVersion); err != nil {
-				if err := r.addToIndexFile(indexFile, downloadUrl.String()); err != nil {
+				// if err := r.addToIndexFile(indexFile, downloadUrl.String()); err != nil {
+				// TODO: make this a config value
+				if err := r.addToIndexFile(indexFile, customUrl); err != nil {
 					return false, err
 				}
 				update = true
